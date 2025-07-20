@@ -4,13 +4,24 @@ A comprehensive suite of TypeScript-based npm libraries that provide native audi
 
 ## Project Overview
 
-The node-native-audio suite consists of three core packages that work together to provide a complete audio processing pipeline:
+The node-native-audio suite consists of four core packages that work together to provide a complete audio processing pipeline with centralized logging and error handling:
 
+- **@calphonse/logger**: Centralized logging and error handling for the entire suite
 - **@calphonse/audio-capture-core**: Native system audio and microphone capture
 - **@calphonse/audio-processor-core**: High-performance audio processing with AI enhancements
 - **@calphonse/whisper-native-core**: Native Whisper speech-to-text with real-time streaming
 
 ## Key Features
+
+### Logger Core
+- ✅ Colored terminal output with chalk integration
+- ✅ Multiple log levels (ERROR, WARN, INFO, DEBUG, TRACE)
+- ✅ JSON structured logging support
+- ✅ Child logger creation for module-specific logging
+- ✅ Centralized error handling with user-friendly messages
+- ✅ Performance monitoring and audit trail capabilities
+- ✅ Source file tracking and timestamps
+- ✅ Configurable output streams and formats
 
 ### Audio Capture Core
 - ✅ System audio capture (speakers output)
@@ -19,6 +30,7 @@ The node-native-audio suite consists of three core packages that work together t
 - ✅ Device enumeration and selection
 - ✅ Cross-platform support (Windows, macOS, Linux)
 - ✅ Low-latency audio processing
+- ✅ Integrated logging for device and capture status
 
 ### Audio Processor Core
 - ✅ Real-time echo cancellation (AEC)
@@ -27,6 +39,7 @@ The node-native-audio suite consists of three core packages that work together t
 - ✅ Automatic gain control (AGC)
 - ✅ SIMD-optimized processing
 - ✅ WebRTC audio processing integration
+- ✅ Performance logging and monitoring
 
 ### Whisper Native Core
 - ✅ Real-time transcription streaming
@@ -35,6 +48,7 @@ The node-native-audio suite consists of three core packages that work together t
 - ✅ Confidence scoring
 - ✅ Segment-level transcription
 - ✅ Model caching and management
+- ✅ Comprehensive error handling and logging
 
 ## Installation
 
@@ -50,6 +64,9 @@ The node-native-audio suite consists of three core packages that work together t
 ### Install Individual Packages
 
 ```bash
+# Logger (foundation package)
+npm install @calphonse/logger
+
 # Audio capture
 npm install @calphonse/audio-capture-core
 
@@ -63,7 +80,7 @@ npm install @calphonse/whisper-native-core
 ### Install All Packages
 
 ```bash
-npm install @calphonse/audio-capture-core @calphonse/audio-processor-core @calphonse/whisper-native-core
+npm install @calphonse/logger @calphonse/audio-capture-core @calphonse/audio-processor-core @calphonse/whisper-native-core
 ```
 
 ## 🛠️ Development Setup
@@ -116,6 +133,23 @@ npm run type-check
 
 ## Usage Examples
 
+### Basic Logging Setup
+
+```typescript
+import { logger, LogLevel } from '@calphonse/logger';
+
+// Configure global logger
+logger.setLevel(LogLevel.DEBUG);
+logger.info('Application started');
+
+// Create child loggers for different modules
+const audioLogger = logger.child('Audio');
+const dbLogger = logger.child('Database');
+
+audioLogger.debug('Audio capture initialized');
+dbLogger.info('Database connection established');
+```
+
 ### Basic Audio Capture
 
 ```typescript
@@ -127,6 +161,8 @@ const capture = new AudioCapture();
 // Get available devices
 const devices = await capture.getDevices();
 const microphones = await capture.getDevicesByType(AudioDeviceType.MICROPHONE);
+
+logger.info('Available devices', { count: devices.length, microphones: microphones.length });
 
 // Start capture
 capture.on('data', (event) => {
@@ -159,6 +195,7 @@ import { logger } from '@calphonse/logger';
 
 const capture = new AudioCapture();
 const processor = new AudioProcessor();
+const audioLogger = logger.child('AudioProcessor');
 
 // Connect capture to processor
 capture.on('data', (event) => {
@@ -168,7 +205,7 @@ capture.on('data', (event) => {
 });
 
 processor.on('processed', (processedData) => {
-  logger.debug('Processed audio', { samples: processedData.length });
+  audioLogger.debug('Processed audio', { samples: processedData.length });
 });
 
 // Configure processing
@@ -177,6 +214,8 @@ await processor.configure({
   noiseSuppression: true,
   automaticGainControl: true
 });
+
+audioLogger.info('Audio processing pipeline configured');
 ```
 
 ### Real-time Transcription
@@ -188,6 +227,7 @@ import { logger } from '@calphonse/logger';
 
 const capture = new AudioCapture();
 const transcriber = new WhisperTranscriber();
+const whisperLogger = logger.child('Whisper');
 
 // Connect capture to transcriber
 capture.on('data', (event) => {
@@ -197,7 +237,11 @@ capture.on('data', (event) => {
 });
 
 transcriber.on('transcription', (result) => {
-  logger.info('Transcription', { text: result.text, confidence: result.confidence });
+  whisperLogger.info('Transcription', {
+    text: result.text,
+    confidence: result.confidence,
+    language: result.language
+  });
 });
 
 // Start transcription
@@ -206,6 +250,8 @@ await transcriber.start({
   language: 'en',
   realTime: true
 });
+
+whisperLogger.info('Whisper transcription started', { model: 'base', language: 'en' });
 ```
 
 ## Architecture
@@ -214,9 +260,20 @@ await transcriber.start({
 
 ```
 packages/
+├── logger/                 # Centralized logging and error handling
 ├── audio-capture-core/     # Native audio capture
 ├── audio-processor-core/   # Audio processing with WebRTC
 └── whisper-native-core/    # Whisper transcription
+```
+
+### Package Dependencies
+
+```
+@calphonse/logger (Foundation)
+    ↑
+    ├── @calphonse/audio-capture-core
+    ├── @calphonse/audio-processor-core
+    └── @calphonse/whisper-native-core
 ```
 
 ### Native Addons
@@ -234,6 +291,9 @@ Audio Input → Capture → Processing → Transcription → Output
      ↓           ↓          ↓            ↓           ↓
   Microphone  Native    WebRTC      Whisper     Text/Events
   System      Addon     AEC/NS      Model       Stream
+     ↓           ↓          ↓            ↓           ↓
+  Logger ←─── Logger ←── Logger ←─── Logger ←─── Logger
+  Events     Events     Events      Events      Events
 ```
 
 ## Performance Targets
@@ -245,6 +305,21 @@ Audio Input → Capture → Processing → Transcription → Output
 - **Cross-Platform Compatibility**: 100% Windows, macOS, Linux
 
 ## Configuration
+
+### Logger Options
+
+```typescript
+interface LoggerConfig {
+  level?: LogLevel;              // Minimum log level to output
+  timestamps?: boolean;          // Enable timestamps
+  colors?: boolean;              // Enable colored output
+  timestampFormat?: string;      // Custom timestamp format
+  showSource?: boolean;          // Show source file information
+  prefix?: string;               // Custom prefix for all messages
+  json?: boolean;                // Output in JSON format
+  output?: NodeJS.WritableStream; // Custom output stream
+}
+```
 
 ### Audio Capture Options
 
@@ -305,6 +380,7 @@ npm run test:performance
 
 ## Documentation
 
+- [Architecture Documentation](./ARCHITECTURE.md) - Comprehensive system architecture and design
 - [API Reference](./docs/api-reference.md)
 - [Installation Guide](./docs/installation.md)
 - [Usage Examples](./docs/examples.md)
@@ -340,17 +416,18 @@ MIT License - see [LICENSE](./LICENSE) file for details.
 - **Discussions**: [GitHub Discussions](https://github.com/ChristopherAlphonse/node-native-audio/discussions)
 - **Documentation**: [Project Wiki](https://github.com/ChristopherAlphonse/node-native-audio/wiki)
 
-## 🗺️ Roadmap
+## Roadmap
 
 ### Phase 1: Core Development (Weeks 1-4)
 - [x] Project structure setup
+- [x] Logger package implementation
 - [ ] Audio capture implementation
 - [ ] Audio processing implementation
 - [ ] Whisper integration
 
 ### Phase 2: Integration (Week 5)
 - [ ] Electron bindings
-
+- [ ] Cross-package integration testing
 
 ### Phase 3: Quality & Launch (Weeks 6-7)
 - [ ] Comprehensive testing
@@ -358,15 +435,16 @@ MIT License - see [LICENSE](./LICENSE) file for details.
 - [ ] Package publishing
 - [ ] Community setup
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - [whisper.cpp](https://github.com/ggerganov/whisper.cpp) for Whisper implementation
 - [WebRTC](https://webrtc.org/) for audio processing algorithms
 - [node-addon-api](https://github.com/nodejs/node-addon-api) for native addon development
 - [Turbo](https://turbo.build/) for monorepo management
+- [Chalk](https://github.com/chalk/chalk) for colored terminal output
 
 ---
 
-**Built with ❤️ by [Christopher Alphonse](https://github.com/ChristopherAlphonse)**
+**Built by [Christopher Alphonse](https://github.com/ChristopherAlphonse)**
 
 
