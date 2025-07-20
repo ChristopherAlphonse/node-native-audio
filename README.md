@@ -131,6 +131,21 @@ npm run format
 npm run type-check
 ```
 
+### Security
+
+```bash
+# Security audit
+npm audit
+
+# Fix security vulnerabilities
+npm audit fix
+
+# Security-focused linting
+npm run lint:security
+```
+
+**Important**: When using development servers, ensure they are only accessible from localhost to prevent the esbuild CORS vulnerability. See [Security Documentation](./SECURITY.md) and [Development Security Guide](./DEVELOPMENT_SECURITY.md) for details.
+
 ## Usage Examples
 
 ### Basic Logging Setup
@@ -381,6 +396,7 @@ npm run test:performance
 ## Documentation
 
 - [Architecture Documentation](./ARCHITECTURE.md) - Comprehensive system architecture and design
+- [Security Documentation](./SECURITY.md) - Security considerations and best practices
 - [API Reference](./docs/api-reference.md)
 - [Installation Guide](./docs/installation.md)
 - [Usage Examples](./docs/examples.md)
