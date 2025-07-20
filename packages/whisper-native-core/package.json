@@ -37,13 +37,12 @@
     "format": "prettier ./src --write",
     "type-check": "tsc --noEmit",
     "clean": "rimraf dist",
-    "install": "node-gyp rebuild",
     "rebuild": "node-gyp rebuild",
     "download-models": "node scripts/download-models.js"
   },
   "dependencies": {
-    "@christopheralphonse/audio-capture-core": "workspace:*",
-    "@christopheralphonse/audio-processor-core": "workspace:*",
+    "@christopheralphonse/audio-capture-core": "*",
+    "@christopheralphonse/audio-processor-core": "*",
     "node-addon-api": "^8.0.0",
     "node-fetch": "^3.3.2"
   },

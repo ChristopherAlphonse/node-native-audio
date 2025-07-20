@@ -3,7 +3,7 @@
 ## ✅ Completed Setup (Phase 1 - Week 1)
 
 ### Project Structure
-- [x] Monorepo setup with Lerna
+- [x] Monorepo setup with Turbo
 - [x] Three core packages created:
   - `@christopheralphonse/audio-capture-core`
   - `@christopheralphonse/audio-processor-core`
@@ -18,6 +18,8 @@
 - [x] Jest configuration for testing
 - [x] GitHub Actions CI/CD pipeline
 - [x] Comprehensive .gitignore
+- [x] Turbo configuration for optimized builds
+- [x] Changesets for versioning and publishing
 
 ### Documentation
 - [x] Comprehensive README.md with usage examples
@@ -127,16 +129,17 @@
 ## 🚀 Deployment Strategy
 
 ### Package Publishing
-- [x] Lerna configuration for monorepo publishing
+- [x] Turbo configuration for monorepo management
+- [x] Changesets for versioning
 - [ ] Automated versioning
 - [ ] Prebuilt binary generation
 - [ ] Cross-platform binary distribution
 
 ### CI/CD Pipeline
 - [x] GitHub Actions workflow
-- [ ] Automated testing on all platforms
-- [ ] Automated building
-- [ ] Automated publishing
+- [x] Automated testing on all platforms
+- [x] Automated building with Turbo
+- [x] Automated publishing
 
 ## 📊 Success Metrics
 
@@ -169,9 +172,6 @@ cd node-native-audio
 # Install dependencies
 npm install
 
-# Bootstrap Lerna
-npm run bootstrap
-
 # Start development
 npm run dev
 
@@ -180,6 +180,28 @@ npm run test
 
 # Build packages
 npm run build
+```
+
+### Available Scripts
+```bash
+# Development
+npm run dev              # Start development mode
+npm run build            # Build all packages
+npm run build:types      # Build type definitions
+
+# Testing
+npm run test             # Run all tests
+npm run test:coverage    # Run tests with coverage
+npm run test:watch       # Run tests in watch mode
+
+# Code Quality
+npm run lint             # Lint all packages
+npm run format           # Format code
+npm run type-check       # Type checking
+
+# Publishing
+npm run publish          # Publish packages
+npm run version          # Version packages
 ```
 
 ## 🎯 Current Focus
@@ -203,3 +225,4 @@ The project is currently in **Phase 1** (Week 1) with the foundation complete. T
 
 **Last Updated**: July 19, 2025
 **Status**: Phase 1 Complete - Ready for Native Implementation
+**Monorepo Tool**: Turbo (migrated from Lerna)

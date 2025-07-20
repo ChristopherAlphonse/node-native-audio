@@ -15,14 +15,16 @@ export default defineConfig({
         'node-addon-api',
         '@christopheralphonse/audio-capture-core',
         '@christopheralphonse/audio-processor-core',
-        'node-fetch'
+        'node-fetch',
+        'events'
       ],
       output: {
         globals: {
           'node-addon-api': 'nodeAddonApi',
           '@christopheralphonse/audio-capture-core': 'ChristopherAlphonseAudioCaptureCore',
           '@christopheralphonse/audio-processor-core': 'ChristopherAlphonseAudioProcessorCore',
-          'node-fetch': 'nodeFetch'
+          'node-fetch': 'nodeFetch',
+          'events': 'events'
         }
       }
     },

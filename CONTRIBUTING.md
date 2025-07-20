@@ -28,7 +28,6 @@ The node-native-audio Audio Libraries Suite is a collection of TypeScript-based 
 2. **Install dependencies**
    ```bash
    npm install
-   npm run bootstrap
    ```
 
 3. **Start development**
@@ -80,16 +79,27 @@ git checkout -b feature/your-feature-name
 ### 3. Run Tests
 
 ```bash
+# Run all tests
 npm run test
-npm run test:integration
-npm run test:performance
+
+# Run tests with coverage
+npm run test:coverage
+
+# Run tests in watch mode
+npm run test:watch
 ```
 
-### 4. Run Linting
+### 4. Run Code Quality Checks
 
 ```bash
+# Lint all packages
 npm run lint
+
+# Format code
 npm run format
+
+# Type checking
+npm run type-check
 ```
 
 ### 5. Build Packages
@@ -402,28 +412,27 @@ Closes #123
 
 ### Versioning
 
-We use [Semantic Versioning](https://semver.org/):
+We use [Semantic Versioning](https://semver.org/) with [Changesets](https://github.com/changesets/changesets):
 - **Major**: Breaking changes
 - **Minor**: New features (backward compatible)
 - **Patch**: Bug fixes (backward compatible)
 
 ### Release Steps
 
-1. **Update version numbers**
+1. **Create changeset**
+   ```bash
+   npx changeset
+   ```
+
+2. **Update versions**
    ```bash
    npm run version
    ```
 
-2. **Create release notes**
-   - Document new features
-   - List bug fixes
-   - Note breaking changes
-   - Include migration guide if needed
-
-3. **Create GitHub release**
-   - Tag the release
-   - Upload build artifacts
-   - Publish to npm
+3. **Publish packages**
+   ```bash
+   npm run publish
+   ```
 
 ## 🤝 Community Guidelines
 

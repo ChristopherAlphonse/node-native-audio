@@ -6,15 +6,16 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
-      name: 'node-native-audioAudioCaptureCore',
+      name: 'ChristopherAlphonseAudioCaptureCore',
       fileName: (format) => `index.${format === 'es' ? 'es' : 'cjs'}.js`,
       formats: ['es', 'cjs']
     },
     rollupOptions: {
-      external: ['node-addon-api'],
+      external: ['node-addon-api', 'events'],
       output: {
         globals: {
-          'node-addon-api': 'nodeAddonApi'
+          'node-addon-api': 'nodeAddonApi',
+          'events': 'events'
         }
       }
     },

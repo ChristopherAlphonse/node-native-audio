@@ -52,6 +52,8 @@ export class NativeAudioCapture extends EventEmitter {
       },
       getSupportedFormats: async (deviceId: string) => {
         // Placeholder - return default formats
+        // TODO: Use deviceId to return device-specific formats when native addon is implemented
+        console.log(`Getting supported formats for device: ${deviceId}`);
         return [
           {
             sampleRate: 16000,

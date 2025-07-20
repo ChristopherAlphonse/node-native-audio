@@ -1,4 +1,4 @@
-// Main exports for @node-native-audio/whisper-native-core
+// Main exports for @christopheralphonse/whisper-native-core
 export * from './types';
 export * from './whisper-transcriber';
 export * from './model-manager';
@@ -6,11 +6,10 @@ export * from './native-whisper';
 
 // Re-export common types
 export type {
-  WhisperModel,
-  WhisperOptions,
+  WhisperConfig,
   TranscriptionResult,
-  TranscriptionSegment,
   WhisperError,
-  ModelInfo,
-  LanguageInfo
+  WhisperStats,
+  WhisperModel,
+  ModelDownloadProgress
 } from './types';

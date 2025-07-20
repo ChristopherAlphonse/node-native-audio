@@ -129,3 +129,6 @@ prebuilds/
 
 # IDEA
 .cursor
+
+# Turborepo
+.turbo

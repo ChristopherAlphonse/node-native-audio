@@ -32,7 +32,8 @@
     "test:watch": "turbo run test:watch",
     "build:types": "turbo run build:types",
     "publish": "turbo run build && changeset publish",
-    "version": "changeset version"
+    "version": "changeset version",
+    "release": "turbo run build && changeset version && changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",

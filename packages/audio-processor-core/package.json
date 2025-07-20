@@ -36,11 +36,10 @@
     "format": "prettier ./src --write",
     "type-check": "tsc --noEmit",
     "clean": "rimraf dist",
-    "install": "node-gyp rebuild",
     "rebuild": "node-gyp rebuild"
   },
   "dependencies": {
-    "@christopheralphonse/audio-capture-core": "workspace:*",
+    "@christopheralphonse/audio-capture-core": "*",
     "node-addon-api": "^8.0.0"
   },
   "devDependencies": {
