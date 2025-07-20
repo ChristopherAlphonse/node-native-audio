@@ -1,0 +1,54 @@
+{
+  "name": "@christopheralphonse/node-native-audio",
+  "version": "1.0.0",
+  "description": "node-native-audio - Native audio capture, processing, and transcription for Node.js and Electron",
+  "author": "Christopher Alphonse",
+  "homepage": "https://github.com/ChristopherAlphonse/node-native-audio",
+  "repository": "github:ChristopherAlphonse/node-native-audio",
+  "license": "MIT",
+  "keywords": [
+    "audio",
+    "capture",
+    "processing",
+    "transcription",
+    "whisper",
+    "electron",
+    "native",
+    "typescript"
+  ],
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "format": "turbo run format",
+    "clean": "turbo run clean",
+    "type-check": "turbo run type-check",
+    "test:coverage": "turbo run test:coverage",
+    "test:watch": "turbo run test:watch",
+    "build:types": "turbo run build:types",
+    "publish": "turbo run build && changeset publish",
+    "version": "changeset version"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.1",
+    "@types/node": "^22.8.1",
+    "@typescript-eslint/eslint-plugin": "^8.11.0",
+    "@typescript-eslint/parser": "^8.11.0",
+    "eslint": "^9.13.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "prettier": "^3.3.3",
+    "turbo": "^2.0.0",
+    "typescript": "^5.6.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "packageManager": "npm@10.0.0"
+}
