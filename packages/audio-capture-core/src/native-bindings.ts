@@ -1,5 +1,10 @@
 import { EventEmitter } from 'events';
-import { AudioDevice, AudioFormat, AudioCaptureOptions, AudioCaptureError } from './types';
+import {
+  AudioDevice,
+  AudioFormat,
+  AudioCaptureOptions,
+  AudioCaptureError,
+} from './types';
 
 // Native addon interface - this will be implemented by the C++ addon
 interface NativeAudioCaptureAddon {
@@ -60,22 +65,22 @@ export class NativeAudioCapture extends EventEmitter {
             channels: 1,
             bitsPerSample: 16,
             signed: true,
-            float: false
+            float: false,
           },
           {
             sampleRate: 44100,
             channels: 2,
             bitsPerSample: 16,
             signed: true,
-            float: false
+            float: false,
           },
           {
             sampleRate: 48000,
             channels: 2,
             bitsPerSample: 16,
             signed: true,
-            float: false
-          }
+            float: false,
+          },
         ];
       },
       start: async (options: AudioCaptureOptions) => {
@@ -89,7 +94,7 @@ export class NativeAudioCapture extends EventEmitter {
       dispose: async () => {
         // Placeholder - simulate cleanup
         console.log('Disposing native audio capture');
-      }
+      },
     };
   }
 
@@ -106,8 +111,11 @@ export class NativeAudioCapture extends EventEmitter {
     } catch (error) {
       const captureError: AudioCaptureError = {
         code: 'DEVICE_ENUMERATION_FAILED',
-        message: error instanceof Error ? error.message : 'Failed to enumerate audio devices',
-        details: error
+        message:
+          error instanceof Error
+            ? error.message
+            : 'Failed to enumerate audio devices',
+        details: error,
       };
 
       this.emit('error', captureError);
@@ -128,8 +136,11 @@ export class NativeAudioCapture extends EventEmitter {
     } catch (error) {
       const captureError: AudioCaptureError = {
         code: 'FORMAT_QUERY_FAILED',
-        message: error instanceof Error ? error.message : 'Failed to query supported formats',
-        details: error
+        message:
+          error instanceof Error
+            ? error.message
+            : 'Failed to query supported formats',
+        details: error,
       };
 
       this.emit('error', captureError);
@@ -153,8 +164,11 @@ export class NativeAudioCapture extends EventEmitter {
     } catch (error) {
       const captureError: AudioCaptureError = {
         code: 'START_FAILED',
-        message: error instanceof Error ? error.message : 'Failed to start audio capture',
-        details: error
+        message:
+          error instanceof Error
+            ? error.message
+            : 'Failed to start audio capture',
+        details: error,
       };
 
       this.emit('error', captureError);
@@ -175,8 +189,11 @@ export class NativeAudioCapture extends EventEmitter {
     } catch (error) {
       const captureError: AudioCaptureError = {
         code: 'STOP_FAILED',
-        message: error instanceof Error ? error.message : 'Failed to stop audio capture',
-        details: error
+        message:
+          error instanceof Error
+            ? error.message
+            : 'Failed to stop audio capture',
+        details: error,
       };
 
       this.emit('error', captureError);
@@ -220,7 +237,7 @@ export class NativeAudioCapture extends EventEmitter {
 
       // Generate some test audio (sine wave)
       for (let i = 0; i < bufferSize; i++) {
-        const sample = Math.sin(2 * Math.PI * 440 * i / sampleRate) * 0.1; // 440Hz sine wave
+        const sample = Math.sin((2 * Math.PI * 440 * i) / sampleRate) * 0.1; // 440Hz sine wave
         audioData[i] = sample;
       }
 

@@ -24,36 +24,36 @@ export class ModelManager {
         size: '39 MB',
         language: 'multilingual',
         url: 'https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-tiny.bin',
-        isDownloaded: false
+        isDownloaded: false,
       },
       {
         name: 'base',
         size: '74 MB',
         language: 'multilingual',
         url: 'https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-base.bin',
-        isDownloaded: false
+        isDownloaded: false,
       },
       {
         name: 'small',
         size: '244 MB',
         language: 'multilingual',
         url: 'https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-small.bin',
-        isDownloaded: false
+        isDownloaded: false,
       },
       {
         name: 'medium',
         size: '769 MB',
         language: 'multilingual',
         url: 'https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-medium.bin',
-        isDownloaded: false
+        isDownloaded: false,
       },
       {
         name: 'large',
         size: '1550 MB',
         language: 'multilingual',
         url: 'https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-large.bin',
-        isDownloaded: false
-      }
+        isDownloaded: false,
+      },
     ];
 
     defaultModels.forEach(model => {
@@ -86,7 +86,10 @@ export class ModelManager {
   /**
    * Download a model
    */
-  async downloadModel(name: string, onProgress?: (progress: ModelDownloadProgress) => void): Promise<void> {
+  async downloadModel(
+    name: string,
+    onProgress?: (progress: ModelDownloadProgress) => void
+  ): Promise<void> {
     const model = this.models.get(name);
     if (!model) {
       throw new Error(`Model '${name}' not found`);
@@ -117,7 +120,10 @@ export class ModelManager {
   /**
    * Simulate model download (placeholder)
    */
-  private async simulateDownload(model: WhisperModel, onProgress?: (progress: ModelDownloadProgress) => void): Promise<void> {
+  private async simulateDownload(
+    model: WhisperModel,
+    onProgress?: (progress: ModelDownloadProgress) => void
+  ): Promise<void> {
     const totalSize = this.parseModelSize(model.size);
     let downloaded = 0;
     const chunkSize = totalSize / 100;
@@ -132,7 +138,7 @@ export class ModelManager {
           downloaded: Math.floor(downloaded),
           total: totalSize,
           percentage: Math.floor(percentage),
-          speed: chunkSize * 10 // Simulated speed
+          speed: chunkSize * 10, // Simulated speed
         });
       }
 

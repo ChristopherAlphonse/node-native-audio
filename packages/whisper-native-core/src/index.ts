@@ -11,5 +11,5 @@ export type {
   WhisperError,
   WhisperStats,
   WhisperModel,
-  ModelDownloadProgress
+  ModelDownloadProgress,
 } from './types';

@@ -1,5 +1,10 @@
 import { EventEmitter } from 'events';
-import { WhisperConfig, TranscriptionResult, WhisperError, WhisperStats } from './types';
+import {
+  WhisperConfig,
+  TranscriptionResult,
+  WhisperError,
+  WhisperStats,
+} from './types';
 
 /**
  * Main Whisper transcriber class
@@ -23,7 +28,7 @@ export class WhisperTranscriber extends EventEmitter {
       topP: 1.0,
       frequencyPenalty: 0.0,
       presencePenalty: 0.0,
-      ...config
+      ...config,
     };
   }
 
@@ -38,8 +43,11 @@ export class WhisperTranscriber extends EventEmitter {
     } catch (error) {
       const whisperError: WhisperError = {
         code: 'INITIALIZATION_FAILED',
-        message: error instanceof Error ? error.message : 'Failed to initialize Whisper transcriber',
-        details: error
+        message:
+          error instanceof Error
+            ? error.message
+            : 'Failed to initialize Whisper transcriber',
+        details: error,
       };
       this.emit('error', whisperError);
       throw error;
@@ -84,7 +92,8 @@ export class WhisperTranscriber extends EventEmitter {
       this.audioBuffer.push(new Float32Array(audioData));
 
       // Process when we have enough data
-      if (this.audioBuffer.length >= 10) { // ~1 second of audio at 16kHz
+      if (this.audioBuffer.length >= 10) {
+        // ~1 second of audio at 16kHz
         const combinedAudio = this.combineAudioBuffers();
         await this.transcribeAudio(combinedAudio);
         this.audioBuffer = [];
@@ -92,8 +101,11 @@ export class WhisperTranscriber extends EventEmitter {
     } catch (error) {
       const whisperError: WhisperError = {
         code: 'PROCESSING_FAILED',
-        message: error instanceof Error ? error.message : 'Failed to process audio for transcription',
-        details: error
+        message:
+          error instanceof Error
+            ? error.message
+            : 'Failed to process audio for transcription',
+        details: error,
       };
       this.emit('error', whisperError);
       throw error;
@@ -104,7 +116,10 @@ export class WhisperTranscriber extends EventEmitter {
    * Combine multiple audio buffers into one
    */
   private combineAudioBuffers(): Float32Array {
-    const totalLength = this.audioBuffer.reduce((sum, buffer) => sum + buffer.length, 0);
+    const totalLength = this.audioBuffer.reduce(
+      (sum, buffer) => sum + buffer.length,
+      0
+    );
     const combined = new Float32Array(totalLength);
 
     let offset = 0;
@@ -128,19 +143,22 @@ export class WhisperTranscriber extends EventEmitter {
 
       const processingTime = performance.now() - startTime;
 
-      if (transcription.text.trim() && transcription.confidence >= (this.config.confidenceThreshold || 0.5)) {
+      if (
+        transcription.text.trim() &&
+        transcription.confidence >= (this.config.confidenceThreshold || 0.5)
+      ) {
         const result: TranscriptionResult = {
           text: transcription.text,
           confidence: transcription.confidence,
           startTime: Date.now() - processingTime,
-          endTime: Date.now()
+          endTime: Date.now(),
         };
 
         const stats: WhisperStats = {
           processingTime,
           tokensProcessed: transcription.text.split(' ').length,
           segmentsGenerated: 1,
-          averageConfidence: transcription.confidence
+          averageConfidence: transcription.confidence,
         };
 
         this.emit('transcription', result);
@@ -149,8 +167,9 @@ export class WhisperTranscriber extends EventEmitter {
     } catch (error) {
       const whisperError: WhisperError = {
         code: 'TRANSCRIPTION_FAILED',
-        message: error instanceof Error ? error.message : 'Failed to transcribe audio',
-        details: error
+        message:
+          error instanceof Error ? error.message : 'Failed to transcribe audio',
+        details: error,
       };
       this.emit('error', whisperError);
       throw error;
@@ -160,7 +179,9 @@ export class WhisperTranscriber extends EventEmitter {
   /**
    * Call the native Whisper model
    */
-  private async callWhisperModel(audioData: Float32Array): Promise<{ text: string; confidence: number }> {
+  private async callWhisperModel(
+    audioData: Float32Array
+  ): Promise<{ text: string; confidence: number }> {
     // TODO: Implement actual Whisper model call
     // This is a placeholder that simulates transcription
     console.log('Calling Whisper model with', audioData.length, 'samples');
@@ -171,7 +192,7 @@ export class WhisperTranscriber extends EventEmitter {
     // Return simulated transcription
     return {
       text: 'Hello, this is a simulated transcription.',
-      confidence: 0.85
+      confidence: 0.85,
     };
   }
 

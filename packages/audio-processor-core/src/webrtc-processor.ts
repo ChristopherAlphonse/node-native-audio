@@ -72,7 +72,9 @@ export class WebRTCProcessor {
    */
   setAGCConfig(targetLevel: number, compressionGain: number): void {
     // TODO: Configure AGC parameters
-    console.log(`Setting AGC: target=${targetLevel}dB, compression=${compressionGain}dB`);
+    console.log(
+      `Setting AGC: target=${targetLevel}dB, compression=${compressionGain}dB`
+    );
   }
 
   /**
@@ -84,7 +86,7 @@ export class WebRTCProcessor {
       echoSuppression: 0,
       noiseSuppression: 0,
       gainAdjustment: 0,
-      voiceActivity: false
+      voiceActivity: false,
     };
   }
 

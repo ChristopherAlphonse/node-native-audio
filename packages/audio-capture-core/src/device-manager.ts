@@ -21,7 +21,10 @@ export class DeviceManager {
     const now = Date.now();
 
     // Return cached devices if still valid
-    if (this.cachedDevices.length > 0 && (now - this.lastRefreshTime) < this.CACHE_DURATION) {
+    if (
+      this.cachedDevices.length > 0 &&
+      now - this.lastRefreshTime < this.CACHE_DURATION
+    ) {
       return this.cachedDevices;
     }
 
@@ -72,7 +75,10 @@ export class DeviceManager {
     try {
       return await this.nativeCapture.getSupportedFormats(deviceId);
     } catch (error) {
-      console.error(`Failed to get supported formats for device ${deviceId}:`, error);
+      console.error(
+        `Failed to get supported formats for device ${deviceId}:`,
+        error
+      );
       return [];
     }
   }
@@ -80,14 +86,18 @@ export class DeviceManager {
   /**
    * Check if a device supports a specific format
    */
-  async supportsFormat(deviceId: string, format: AudioFormat): Promise<boolean> {
+  async supportsFormat(
+    deviceId: string,
+    format: AudioFormat
+  ): Promise<boolean> {
     const supportedFormats = await this.getSupportedFormats(deviceId);
-    return supportedFormats.some(supported =>
-      supported.sampleRate === format.sampleRate &&
-      supported.channels === format.channels &&
-      supported.bitsPerSample === format.bitsPerSample &&
-      supported.signed === format.signed &&
-      supported.float === format.float
+    return supportedFormats.some(
+      supported =>
+        supported.sampleRate === format.sampleRate &&
+        supported.channels === format.channels &&
+        supported.bitsPerSample === format.bitsPerSample &&
+        supported.signed === format.signed &&
+        supported.float === format.float
     );
   }
 
@@ -122,7 +132,7 @@ export class DeviceManager {
       supportedFormats: rawDevice.supportedFormats || [],
       maxChannels: rawDevice.maxChannels || 2,
       maxSampleRate: rawDevice.maxSampleRate || 48000,
-      minSampleRate: rawDevice.minSampleRate || 8000
+      minSampleRate: rawDevice.minSampleRate || 8000,
     };
   }
 

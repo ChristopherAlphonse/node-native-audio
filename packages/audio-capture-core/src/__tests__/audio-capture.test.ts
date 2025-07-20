@@ -1,5 +1,5 @@
-import { AudioCapture, AudioDeviceType } from '../audio-capture';
-import { AudioFormat } from '../types';
+import { AudioCapture } from '../audio-capture';
+import { AudioDeviceType } from '../types';
 
 describe('AudioCapture', () => {
   let capture: AudioCapture;
@@ -31,7 +31,9 @@ describe('AudioCapture', () => {
 
   describe('getDevicesByType', () => {
     it('should return devices of specified type', async () => {
-      const microphones = await capture.getDevicesByType(AudioDeviceType.MICROPHONE);
+      const microphones = await capture.getDevicesByType(
+        AudioDeviceType.MICROPHONE
+      );
       expect(Array.isArray(microphones)).toBe(true);
 
       // All returned devices should be microphones
@@ -43,7 +45,9 @@ describe('AudioCapture', () => {
 
   describe('getDefaultDevice', () => {
     it('should return default device for type', async () => {
-      const defaultMic = await capture.getDefaultDevice(AudioDeviceType.MICROPHONE);
+      const defaultMic = await capture.getDefaultDevice(
+        AudioDeviceType.MICROPHONE
+      );
       if (defaultMic) {
         expect(defaultMic.type).toBe(AudioDeviceType.MICROPHONE);
         expect(defaultMic.isDefault).toBe(true);
@@ -57,7 +61,7 @@ describe('AudioCapture', () => {
 
       // Mock the native capture to resolve immediately
       jest.spyOn(capture as any, 'nativeCapture').mockImplementation({
-        start: jest.fn().mockResolvedValue(undefined)
+        start: jest.fn().mockResolvedValue(undefined),
       });
 
       await startPromise;
@@ -68,7 +72,9 @@ describe('AudioCapture', () => {
       // Mock to simulate already capturing
       jest.spyOn(capture, 'isActive').mockReturnValue(true);
 
-      await expect(capture.startCapture()).rejects.toThrow('Audio capture is already running');
+      await expect(capture.startCapture()).rejects.toThrow(
+        'Audio capture is already running'
+      );
     });
   });
 
@@ -77,7 +83,7 @@ describe('AudioCapture', () => {
       // Mock to simulate active capture
       jest.spyOn(capture, 'isActive').mockReturnValue(true);
       jest.spyOn(capture as any, 'nativeCapture').mockImplementation({
-        stop: jest.fn().mockResolvedValue(undefined)
+        stop: jest.fn().mockResolvedValue(undefined),
       });
 
       await capture.stopCapture();
@@ -105,8 +111,8 @@ describe('AudioCapture', () => {
   });
 
   describe('events', () => {
-    it('should emit start event when capture starts', (done) => {
-      capture.on('start', (event) => {
+    it('should emit start event when capture starts', done => {
+      capture.on('start', event => {
         expect(event.type).toBe('start');
         expect(event.timestamp).toBeDefined();
         done();
@@ -114,14 +120,14 @@ describe('AudioCapture', () => {
 
       // Mock successful start
       jest.spyOn(capture as any, 'nativeCapture').mockImplementation({
-        start: jest.fn().mockResolvedValue(undefined)
+        start: jest.fn().mockResolvedValue(undefined),
       });
 
       capture.startCapture();
     });
 
-    it('should emit stop event when capture stops', (done) => {
-      capture.on('stop', (event) => {
+    it('should emit stop event when capture stops', done => {
+      capture.on('stop', event => {
         expect(event.type).toBe('stop');
         expect(event.timestamp).toBeDefined();
         done();
@@ -130,7 +136,7 @@ describe('AudioCapture', () => {
       // Mock successful stop
       jest.spyOn(capture, 'isActive').mockReturnValue(true);
       jest.spyOn(capture as any, 'nativeCapture').mockImplementation({
-        stop: jest.fn().mockResolvedValue(undefined)
+        stop: jest.fn().mockResolvedValue(undefined),
       });
 
       capture.stopCapture();

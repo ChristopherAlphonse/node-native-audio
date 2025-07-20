@@ -8,7 +8,10 @@ import { TranscriptionResult, WhisperConfig } from './types';
 // Native addon interface - this will be implemented by the C++ addon
 interface NativeWhisperAddon {
   initialize(modelPath: string, config: WhisperConfig): Promise<void>;
-  transcribe(audioData: Float32Array, sampleRate: number): Promise<TranscriptionResult>;
+  transcribe(
+    audioData: Float32Array,
+    sampleRate: number
+  ): Promise<TranscriptionResult>;
   dispose(): Promise<void>;
 }
 
@@ -48,11 +51,22 @@ export class NativeWhisper {
     // In the actual implementation, this would load the compiled C++ addon
     return {
       initialize: async (modelPath: string, config: WhisperConfig) => {
-        console.log('Initializing Whisper model:', modelPath, 'with config:', config);
+        console.log(
+          'Initializing Whisper model:',
+          modelPath,
+          'with config:',
+          config
+        );
       },
       transcribe: async (audioData: Float32Array, sampleRate: number) => {
         // Placeholder - return simulated transcription
-        console.log('Transcribing audio with', audioData.length, 'samples at', sampleRate, 'Hz');
+        console.log(
+          'Transcribing audio with',
+          audioData.length,
+          'samples at',
+          sampleRate,
+          'Hz'
+        );
 
         // Simulate processing delay
         await new Promise(resolve => setTimeout(resolve, 100));
@@ -61,19 +75,22 @@ export class NativeWhisper {
           text: 'Hello, this is a simulated transcription from the native Whisper addon.',
           confidence: 0.85,
           startTime: Date.now() - 100,
-          endTime: Date.now()
+          endTime: Date.now(),
         };
       },
       dispose: async () => {
         console.log('Disposing native Whisper addon');
-      }
+      },
     };
   }
 
   /**
    * Initialize Whisper model
    */
-  async initializeModel(modelPath: string, config: WhisperConfig): Promise<void> {
+  async initializeModel(
+    modelPath: string,
+    config: WhisperConfig
+  ): Promise<void> {
     if (!this.isInitialized || !this.addon) {
       throw new Error('Native Whisper addon not initialized');
     }
@@ -89,7 +106,10 @@ export class NativeWhisper {
   /**
    * Transcribe audio data
    */
-  async transcribe(audioData: Float32Array, sampleRate: number = 16000): Promise<TranscriptionResult> {
+  async transcribe(
+    audioData: Float32Array,
+    sampleRate: number = 16000
+  ): Promise<TranscriptionResult> {
     if (!this.isInitialized || !this.addon) {
       throw new Error('Native Whisper addon not initialized');
     }

@@ -22,7 +22,7 @@ export class SIMDProcessor {
       useWebAssembly: true,
       useNativeSIMD: true,
       bufferSize: 1024,
-      ...config
+      ...config,
     };
   }
 
@@ -37,7 +37,7 @@ export class SIMDProcessor {
       if (this.config.enabled && this.simdSupported) {
         console.log('SIMD processor initialized with support:', {
           webAssembly: this.config.useWebAssembly,
-          nativeSIMD: this.config.useNativeSIMD
+          nativeSIMD: this.config.useNativeSIMD,
         });
       } else {
         console.log('SIMD processor disabled or not supported');
@@ -53,15 +53,22 @@ export class SIMDProcessor {
   /**
    * Check if SIMD is supported
    */
-    private checkSIMDSupport(): boolean {
+  private checkSIMDSupport(): boolean {
     // Check for WebAssembly SIMD support
-    if (typeof WebAssembly !== 'undefined' && typeof WebAssembly.validate === 'function') {
+    if (
+      typeof WebAssembly !== 'undefined' &&
+      typeof WebAssembly.validate === 'function'
+    ) {
       // TODO: Check for actual SIMD support
       return true;
     }
 
     // Check for native SIMD support
-    if (typeof process !== 'undefined' && process.versions && process.versions.node) {
+    if (
+      typeof process !== 'undefined' &&
+      process.versions &&
+      process.versions.node
+    ) {
       // Node.js environment - check for native SIMD
       return true;
     }
@@ -83,7 +90,10 @@ export class SIMDProcessor {
 
       return new Float32Array(audioData);
     } catch (error) {
-      console.error('SIMD processing failed, falling back to standard processing:', error);
+      console.error(
+        'SIMD processing failed, falling back to standard processing:',
+        error
+      );
       return audioData;
     }
   }
@@ -126,7 +136,10 @@ export class SIMDProcessor {
   /**
    * Standard vector multiplication (fallback)
    */
-  private vectorMultiplyStandard(a: Float32Array, b: Float32Array): Float32Array {
+  private vectorMultiplyStandard(
+    a: Float32Array,
+    b: Float32Array
+  ): Float32Array {
     const result = new Float32Array(a.length);
     for (let i = 0; i < a.length; i++) {
       result[i] = a[i] * b[i];
@@ -163,7 +176,7 @@ export class SIMDProcessor {
       supported: this.simdSupported,
       webAssembly: this.config.useWebAssembly,
       nativeSIMD: this.config.useNativeSIMD,
-      enabled: this.config.enabled
+      enabled: this.config.enabled,
     };
   }
 

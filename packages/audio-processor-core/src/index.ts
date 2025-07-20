@@ -12,5 +12,5 @@ export type {
   EchoCancellationConfig,
   NoiseSuppressionConfig,
   AutomaticGainControlConfig,
-  ProcessedAudioData
+  ProcessedAudioData,
 } from './types';

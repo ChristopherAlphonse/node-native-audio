@@ -7,7 +7,7 @@ import {
   AudioCaptureEvent,
   AudioCaptureError,
   AudioCaptureStats,
-  AudioCaptureSession
+  AudioCaptureSession,
 } from './types';
 import { DeviceManager } from './device-manager';
 import { NativeAudioCapture } from './native-bindings';
@@ -31,7 +31,7 @@ export class AudioCapture extends EventEmitter {
       this.emit('data', {
         type: 'data',
         timestamp: Date.now(),
-        data
+        data,
       } as AudioCaptureEvent);
     });
 
@@ -39,7 +39,7 @@ export class AudioCapture extends EventEmitter {
       this.emit('error', {
         type: 'error',
         timestamp: Date.now(),
-        error
+        error,
       } as AudioCaptureEvent);
     });
   }
@@ -78,7 +78,9 @@ export class AudioCapture extends EventEmitter {
     try {
       // Get device if not specified
       if (!options.deviceId) {
-        const defaultDevice = await this.getDefaultDevice(AudioDeviceType.MICROPHONE);
+        const defaultDevice = await this.getDefaultDevice(
+          AudioDeviceType.MICROPHONE
+        );
         if (!defaultDevice) {
           throw new Error('No default microphone device found');
         }
@@ -99,7 +101,7 @@ export class AudioCapture extends EventEmitter {
           channels: 1,
           bitsPerSample: 16,
           signed: true,
-          float: false
+          float: false,
         };
       }
 
@@ -121,8 +123,8 @@ export class AudioCapture extends EventEmitter {
           channels: options.format!.channels!,
           bufferUnderruns: 0,
           bufferOverruns: 0,
-          errors: 0
-        }
+          errors: 0,
+        },
       };
 
       this.isCapturing = true;
@@ -130,20 +132,22 @@ export class AudioCapture extends EventEmitter {
       this.emit('start', {
         type: 'start',
         timestamp: Date.now(),
-        deviceId: options.deviceId
+        deviceId: options.deviceId,
       } as AudioCaptureEvent);
-
     } catch (error) {
       const captureError: AudioCaptureError = {
         code: 'START_FAILED',
-        message: error instanceof Error ? error.message : 'Failed to start audio capture',
-        details: error
+        message:
+          error instanceof Error
+            ? error.message
+            : 'Failed to start audio capture',
+        details: error,
       };
 
       this.emit('error', {
         type: 'error',
         timestamp: Date.now(),
-        error: captureError
+        error: captureError,
       } as AudioCaptureEvent);
 
       throw error;
@@ -163,27 +167,30 @@ export class AudioCapture extends EventEmitter {
 
       if (this.currentSession) {
         this.currentSession.isActive = false;
-        this.currentSession.stats.duration = Date.now() - this.currentSession.startTime;
+        this.currentSession.stats.duration =
+          Date.now() - this.currentSession.startTime;
       }
 
       this.isCapturing = false;
 
       this.emit('stop', {
         type: 'stop',
-        timestamp: Date.now()
+        timestamp: Date.now(),
       } as AudioCaptureEvent);
-
     } catch (error) {
       const captureError: AudioCaptureError = {
         code: 'STOP_FAILED',
-        message: error instanceof Error ? error.message : 'Failed to stop audio capture',
-        details: error
+        message:
+          error instanceof Error
+            ? error.message
+            : 'Failed to stop audio capture',
+        details: error,
       };
 
       this.emit('error', {
         type: 'error',
         timestamp: Date.now(),
-        error: captureError
+        error: captureError,
       } as AudioCaptureEvent);
 
       throw error;

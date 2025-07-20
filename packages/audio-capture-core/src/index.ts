@@ -11,5 +11,5 @@ export type {
   AudioFormat,
   AudioCaptureOptions,
   AudioCaptureEvent,
-  AudioCaptureError
+  AudioCaptureError,
 } from './types';

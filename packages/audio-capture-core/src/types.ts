@@ -5,7 +5,7 @@ export enum AudioDeviceType {
   MICROPHONE = 'microphone',
   SPEAKERS = 'speakers',
   SYSTEM_AUDIO = 'system_audio',
-  LOOPBACK = 'loopback'
+  LOOPBACK = 'loopback',
 }
 
 /**
@@ -85,10 +85,10 @@ export interface AudioCaptureStats {
  * Platform-specific audio APIs
  */
 export enum AudioAPI {
-  WASAPI = 'wasapi',      // Windows
+  WASAPI = 'wasapi', // Windows
   CORE_AUDIO = 'core_audio', // macOS
-  ALSA = 'alsa',          // Linux
-  PULSE_AUDIO = 'pulse_audio' // Linux
+  ALSA = 'alsa', // Linux
+  PULSE_AUDIO = 'pulse_audio', // Linux
 }
 
 /**
