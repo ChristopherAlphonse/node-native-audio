@@ -2,11 +2,11 @@
 
 Thank you for your interest in contributing to the node-native-audio Audio Libraries Suite! This document provides guidelines and information for contributors.
 
-## 🎯 Project Overview
+## Project Overview
 
 The node-native-audio Audio Libraries Suite is a collection of TypeScript-based npm libraries that provide native audio capture, processing, and transcription capabilities for Node.js and Electron applications.
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -35,7 +35,7 @@ The node-native-audio Audio Libraries Suite is a collection of TypeScript-based 
    npm run dev
    ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 packages/
@@ -62,7 +62,7 @@ packages/
     └── binding.gyp         # Native addon build config
 ```
 
-## 🔧 Development Workflow
+## Development Workflow
 
 ### 1. Create a Feature Branch
 
@@ -115,7 +115,7 @@ npm run build
 - Reference any related issues
 - Ensure all CI checks pass
 
-## 📝 Coding Standards
+## Coding Standards
 
 ### TypeScript
 
@@ -161,7 +161,7 @@ export async function processAudio(
 }
 ```
 
-## 🧪 Testing
+## Testing
 
 ### Test Structure
 
@@ -205,7 +205,7 @@ describe('AudioCapture', () => {
 - Mock external dependencies
 - Test edge cases and boundary conditions
 
-## 🔨 Native Addon Development
+## Native Addon Development
 
 ### C++ Guidelines
 
@@ -247,7 +247,7 @@ private:
 };
 ```
 
-## 📚 Documentation
+## Documentation
 
 ### API Documentation
 
@@ -295,7 +295,7 @@ export interface AudioCaptureOptions {
 async startCapture(options: AudioCaptureOptions = {}): Promise<void>
 ```
 
-## 🐛 Bug Reports
+## Bug Reports
 
 ### Before Submitting
 
@@ -332,7 +332,7 @@ What actually happens
 - Logs
 ```
 
-## 💡 Feature Requests
+## Feature Requests
 
 ### Before Submitting
 
@@ -360,7 +360,7 @@ Other approaches you've considered
 Any other relevant details
 ```
 
-## 🔄 Pull Request Process
+## Pull Request Process
 
 ### Before Submitting
 
@@ -408,7 +408,7 @@ Brief description of changes
 Closes #123
 ```
 
-## 🏷️ Release Process
+## Release Process
 
 ### Versioning
 
@@ -434,7 +434,7 @@ We use [Semantic Versioning](https://semver.org/) with [Changesets](https://gith
    npm run publish
    ```
 
-## 🤝 Community Guidelines
+## Community Guidelines
 
 ### Code of Conduct
 
@@ -450,16 +450,16 @@ We use [Semantic Versioning](https://semver.org/) with [Changesets](https://gith
 - Be clear and concise
 - Provide context and examples
 
-## 📞 Getting Help
+## Getting Help
 
 - **Issues**: [GitHub Issues](https://github.com/ChristopherAlphonse/node-native-audio/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/ChristopherAlphonse/node-native-audio/discussions)
 - **Documentation**: [Project Wiki](https://github.com/ChristopherAlphonse/node-native-audio/wiki)
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 Thank you for contributing to the node-native-audio Audio Libraries Suite! Your contributions help make this project better for everyone.
 
 ---
 
-**Happy coding! 🎵**
+**Happy coding! **

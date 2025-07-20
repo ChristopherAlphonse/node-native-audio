@@ -9,10 +9,10 @@
  * - Speech-to-text transcription
  */
 
-const { AudioCapture, AudioDeviceType } = require('@calphonse/audio-capture-core');
-const { AudioProcessor } = require('@calphonse/audio-processor-core');
-const { WhisperTranscriber } = require('@calphonse/whisper-native-core');
-const { logger } = require('@calphonse/logger');
+import { AudioCapture, AudioDeviceType } from '@calphonse/audio-capture-core';
+import { AudioProcessor } from '@calphonse/audio-processor-core';
+import { WhisperTranscriber } from '@calphonse/whisper-native-core';
+import { logger } from '@calphonse/logger';
 
 async function main() {
   logger.info('🎵 node-native-audio Audio Libraries Suite - Basic Usage Example');
@@ -120,8 +120,8 @@ async function main() {
 }
 
 // Run the example
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   main();
 }
 
-module.exports = { main };
+export { main };

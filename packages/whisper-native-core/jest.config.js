@@ -9,6 +9,9 @@ export default {
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest'
   },
+  moduleNameMapper: {
+    '@calphonse/logger': '<rootDir>/src/__mocks__/logger.ts'
+  },
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
     '!src/**/*.d.ts',

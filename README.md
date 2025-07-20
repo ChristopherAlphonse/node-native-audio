@@ -4,16 +4,18 @@ A comprehensive suite of TypeScript-based npm libraries that provide native audi
 
 ## Project Overview
 
-The node-native-audio suite consists of four core packages that work together to provide a complete audio processing pipeline with centralized logging and error handling:
+The node-native-audio suite consists of three core packages that work together to provide a complete audio processing pipeline with centralized logging and error handling:
 
-- **@calphonse/logger**: Centralized logging and error handling for the entire suite
 - **@calphonse/audio-capture-core**: Native system audio and microphone capture
 - **@calphonse/audio-processor-core**: High-performance audio processing with AI enhancements
 - **@calphonse/whisper-native-core**: Native Whisper speech-to-text with real-time streaming
 
+**Note**: This suite uses [@calphonse/logger](https://www.npmjs.com/package/@calphonse/logger) as an external dependency for centralized logging and error handling.
+
 ## Key Features
 
-### Logger Core
+### Logger Integration
+- ✅ Uses [@calphonse/logger](https://www.npmjs.com/package/@calphonse/logger) for centralized logging
 - ✅ Colored terminal output with chalk integration
 - ✅ Multiple log levels (ERROR, WARN, INFO, DEBUG, TRACE)
 - ✅ JSON structured logging support
@@ -64,7 +66,7 @@ The node-native-audio suite consists of four core packages that work together to
 ### Install Individual Packages
 
 ```bash
-# Logger (foundation package)
+# Logger (external dependency)
 npm install @calphonse/logger
 
 # Audio capture
@@ -275,7 +277,6 @@ whisperLogger.info('Whisper transcription started', { model: 'base', language: '
 
 ```
 packages/
-├── logger/                 # Centralized logging and error handling
 ├── audio-capture-core/     # Native audio capture
 ├── audio-processor-core/   # Audio processing with WebRTC
 └── whisper-native-core/    # Whisper transcription
@@ -284,7 +285,7 @@ packages/
 ### Package Dependencies
 
 ```
-@calphonse/logger (Foundation)
+@calphonse/logger (External)
     ↑
     ├── @calphonse/audio-capture-core
     ├── @calphonse/audio-processor-core
@@ -436,7 +437,7 @@ MIT License - see [LICENSE](./LICENSE) file for details.
 
 ### Phase 1: Core Development (Weeks 1-4)
 - [x] Project structure setup
-- [x] Logger package implementation
+- [x] Logger package moved to external dependency
 - [ ] Audio capture implementation
 - [ ] Audio processing implementation
 - [ ] Whisper integration

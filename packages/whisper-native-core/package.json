@@ -42,7 +42,7 @@
   "dependencies": {
     "@calphonse/audio-capture-core": "*",
     "@calphonse/audio-processor-core": "*",
-    "@calphonse/logger": "*",
+    "@calphonse/logger": "^1.0.1",
     "node-fetch": "^3.3.2"
   },
   "devDependencies": {
