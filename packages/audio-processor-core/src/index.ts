@@ -1,4 +1,4 @@
-// Main exports for @christopheralphonse/audio-processor-core
+// Main exports for @calphonse/audio-processor-core
 export * from './types';
 export * from './audio-processor';
 export * from './webrtc-processor';

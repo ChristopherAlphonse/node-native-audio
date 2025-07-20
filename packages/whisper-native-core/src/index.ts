@@ -1,4 +1,4 @@
-// Main exports for @christopheralphonse/whisper-native-core
+// Main exports for @calphonse/whisper-native-core
 export * from './types';
 export * from './whisper-transcriber';
 export * from './model-manager';

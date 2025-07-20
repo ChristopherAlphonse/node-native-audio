@@ -13,16 +13,16 @@ export default defineConfig({
     rollupOptions: {
       external: [
         'node-addon-api',
-        '@christopheralphonse/audio-capture-core',
-        '@christopheralphonse/audio-processor-core',
+        '@calphonse/audio-capture-core',
+        '@calphonse/audio-processor-core',
         'node-fetch',
         'events'
       ],
       output: {
         globals: {
           'node-addon-api': 'nodeAddonApi',
-          '@christopheralphonse/audio-capture-core': 'ChristopherAlphonseAudioCaptureCore',
-          '@christopheralphonse/audio-processor-core': 'ChristopherAlphonseAudioProcessorCore',
+                      '@calphonse/audio-capture-core': 'CalphonseAudioCaptureCore',
+            '@calphonse/audio-processor-core': 'CalphonseAudioProcessorCore',
           'node-fetch': 'nodeFetch',
           'events': 'events'
         }

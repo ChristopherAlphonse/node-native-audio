@@ -57,20 +57,78 @@ describe('AudioCapture', () => {
 
   describe('startCapture', () => {
     it('should start capture with default options', async () => {
-      const startPromise = capture.startCapture();
-
-      // Mock the native capture to resolve immediately
-      jest.spyOn(capture as any, 'nativeCapture').mockImplementation({
-        start: jest.fn().mockResolvedValue(undefined),
+      // Mock the getDefaultDevice to return a mock device
+      jest.spyOn(capture, 'getDefaultDevice').mockResolvedValue({
+        id: 'mock-device-id',
+        name: 'Mock Microphone',
+        type: AudioDeviceType.MICROPHONE,
+        isDefault: true,
+        isActive: false,
+        supportedFormats: [
+          {
+            sampleRate: 16000,
+            channels: 1,
+            bitsPerSample: 16,
+            signed: true,
+            float: false,
+          },
+        ],
+        maxChannels: 2,
+        maxSampleRate: 48000,
+        minSampleRate: 8000,
       });
 
-      await startPromise;
+      // Mock the native capture start method
+      const mockNativeCapture = {
+        start: jest.fn().mockResolvedValue(undefined),
+        stop: jest.fn().mockResolvedValue(undefined),
+        dispose: jest.fn().mockResolvedValue(undefined),
+        on: jest.fn(),
+      };
+      (capture as any).nativeCapture = mockNativeCapture;
+
+      // Mock the device manager to return the mock device
+      const mockDeviceManager = {
+        getDevices: jest.fn().mockResolvedValue([
+          {
+            id: 'mock-device-id',
+            name: 'Mock Microphone',
+            type: AudioDeviceType.MICROPHONE,
+            isDefault: true,
+            isActive: false,
+            supportedFormats: [
+              {
+                sampleRate: 16000,
+                channels: 1,
+                bitsPerSample: 16,
+                signed: true,
+                float: false,
+              },
+            ],
+            maxChannels: 2,
+            maxSampleRate: 48000,
+            minSampleRate: 8000,
+          },
+        ]),
+        dispose: jest.fn().mockResolvedValue(undefined),
+      };
+      (capture as any).deviceManager = mockDeviceManager;
+
+      await capture.startCapture();
       expect(capture.isActive()).toBe(true);
+      expect(mockNativeCapture.start).toHaveBeenCalled();
     });
 
     it('should throw error if already capturing', async () => {
       // Mock to simulate already capturing
       jest.spyOn(capture, 'isActive').mockReturnValue(true);
+
+      // Mock the device manager to avoid device lookup errors
+      const mockDeviceManager = {
+        getDevices: jest.fn().mockResolvedValue([]),
+        dispose: jest.fn().mockResolvedValue(undefined),
+      };
+      (capture as any).deviceManager = mockDeviceManager;
 
       await expect(capture.startCapture()).rejects.toThrow(
         'Audio capture is already running'
@@ -81,13 +139,20 @@ describe('AudioCapture', () => {
   describe('stopCapture', () => {
     it('should stop capture when active', async () => {
       // Mock to simulate active capture
-      jest.spyOn(capture, 'isActive').mockReturnValue(true);
-      jest.spyOn(capture as any, 'nativeCapture').mockImplementation({
+      jest.spyOn(capture, 'isActive').mockReturnValueOnce(true).mockReturnValueOnce(false);
+
+      // Mock the native capture stop method
+      const mockNativeCapture = {
+        start: jest.fn().mockResolvedValue(undefined),
         stop: jest.fn().mockResolvedValue(undefined),
-      });
+        dispose: jest.fn().mockResolvedValue(undefined),
+        on: jest.fn(),
+      };
+      (capture as any).nativeCapture = mockNativeCapture;
 
       await capture.stopCapture();
       expect(capture.isActive()).toBe(false);
+      expect(mockNativeCapture.stop).toHaveBeenCalled();
     });
 
     it('should not throw error if not capturing', async () => {
@@ -119,9 +184,60 @@ describe('AudioCapture', () => {
       });
 
       // Mock successful start
-      jest.spyOn(capture as any, 'nativeCapture').mockImplementation({
-        start: jest.fn().mockResolvedValue(undefined),
+      jest.spyOn(capture, 'getDefaultDevice').mockResolvedValue({
+        id: 'mock-device-id',
+        name: 'Mock Microphone',
+        type: AudioDeviceType.MICROPHONE,
+        isDefault: true,
+        isActive: false,
+        supportedFormats: [
+          {
+            sampleRate: 16000,
+            channels: 1,
+            bitsPerSample: 16,
+            signed: true,
+            float: false,
+          },
+        ],
+        maxChannels: 2,
+        maxSampleRate: 48000,
+        minSampleRate: 8000,
       });
+
+      const mockNativeCapture = {
+        start: jest.fn().mockResolvedValue(undefined),
+        stop: jest.fn().mockResolvedValue(undefined),
+        dispose: jest.fn().mockResolvedValue(undefined),
+        on: jest.fn(),
+      };
+      (capture as any).nativeCapture = mockNativeCapture;
+
+      // Mock the device manager to return the mock device
+      const mockDeviceManager = {
+        getDevices: jest.fn().mockResolvedValue([
+          {
+            id: 'mock-device-id',
+            name: 'Mock Microphone',
+            type: AudioDeviceType.MICROPHONE,
+            isDefault: true,
+            isActive: false,
+            supportedFormats: [
+              {
+                sampleRate: 16000,
+                channels: 1,
+                bitsPerSample: 16,
+                signed: true,
+                float: false,
+              },
+            ],
+            maxChannels: 2,
+            maxSampleRate: 48000,
+            minSampleRate: 8000,
+          },
+        ]),
+        dispose: jest.fn().mockResolvedValue(undefined),
+      };
+      (capture as any).deviceManager = mockDeviceManager;
 
       capture.startCapture();
     });
@@ -135,9 +251,14 @@ describe('AudioCapture', () => {
 
       // Mock successful stop
       jest.spyOn(capture, 'isActive').mockReturnValue(true);
-      jest.spyOn(capture as any, 'nativeCapture').mockImplementation({
+
+      const mockNativeCapture = {
+        start: jest.fn().mockResolvedValue(undefined),
         stop: jest.fn().mockResolvedValue(undefined),
-      });
+        dispose: jest.fn().mockResolvedValue(undefined),
+        on: jest.fn(),
+      };
+      (capture as any).nativeCapture = mockNativeCapture;
 
       capture.stopCapture();
     });

@@ -1,5 +1,5 @@
 {
-  "name": "@christopheralphonse/audio-capture-core",
+  "name": "@calphonse/audio-capture-core",
   "version": "1.0.0",
   "description": "Native system audio and microphone capture for Node.js and Electron",
   "author": "Christopher Alphonse",
@@ -37,13 +37,11 @@
     "lint": "eslint ./src",
     "format": "prettier ./src --write",
     "type-check": "tsc --noEmit",
-    "clean": "rimraf dist",
-    "rebuild": "node-gyp rebuild"
+    "clean": "rimraf dist"
   },
-  "dependencies": {
-    "node-addon-api": "^8.0.0"
-  },
+  "dependencies": {},
   "devDependencies": {
+    "@types/jest": "^29.5.12",
     "@types/node": "^22.8.1",
     "@typescript-eslint/eslint-plugin": "^8.11.0",
     "@typescript-eslint/parser": "^8.11.0",
@@ -54,6 +52,7 @@
     "jest": "^29.7.0",
     "prettier": "^3.3.3",
     "rimraf": "^5.0.5",
+    "ts-jest": "^29.1.2",
     "tslib": "^2.8.0",
     "typescript": "^5.6.3",
     "vite": "^5.4.10",

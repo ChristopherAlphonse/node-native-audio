@@ -6,9 +6,9 @@ A comprehensive suite of TypeScript-based npm libraries that provide native audi
 
 The node-native-audio suite consists of three core packages that work together to provide a complete audio processing pipeline:
 
-- **@christopheralphonse/audio-capture-core**: Native system audio and microphone capture
-- **@christopheralphonse/audio-processor-core**: High-performance audio processing with AI enhancements
-- **@christopheralphonse/whisper-native-core**: Native Whisper speech-to-text with real-time streaming
+- **@calphonse/audio-capture-core**: Native system audio and microphone capture
+- **@calphonse/audio-processor-core**: High-performance audio processing with AI enhancements
+- **@calphonse/whisper-native-core**: Native Whisper speech-to-text with real-time streaming
 
 ## 🚀 Key Features
 
@@ -51,19 +51,19 @@ The node-native-audio suite consists of three core packages that work together t
 
 ```bash
 # Audio capture
-npm install @christopheralphonse/audio-capture-core
+npm install @calphonse/audio-capture-core
 
 # Audio processing
-npm install @christopheralphonse/audio-processor-core
+npm install @calphonse/audio-processor-core
 
 # Whisper transcription
-npm install @christopheralphonse/whisper-native-core
+npm install @calphonse/whisper-native-core
 ```
 
 ### Install All Packages
 
 ```bash
-npm install @christopheralphonse/audio-capture-core @christopheralphonse/audio-processor-core @christopheralphonse/whisper-native-core
+npm install @calphonse/audio-capture-core @calphonse/audio-processor-core @calphonse/whisper-native-core
 ```
 
 ## 🛠️ Development Setup

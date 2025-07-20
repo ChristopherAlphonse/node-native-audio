@@ -1,29 +1,25 @@
 {
-  "name": "@calphonse/audio-processor-core",
+  "name": "@calphonse/logger",
   "version": "1.0.0",
-  "description": "High-performance audio processing with AI enhancements for Node.js and Electron",
+  "description": "Colored logging utility with chalk for Node.js applications",
   "author": "Christopher Alphonse",
   "homepage": "https://github.com/ChristopherAlphonse/node-native-audio",
   "repository": "github:ChristopherAlphonse/node-native-audio",
   "license": "MIT",
   "keywords": [
-    "audio",
-    "processing",
-    "echo-cancellation",
-    "noise-reduction",
-    "webrtc",
-    "simd",
-    "native",
-    "electron"
+    "logger",
+    "logging",
+    "chalk",
+    "colors",
+    "console",
+    "utility"
   ],
   "main": "dist/index.cjs.js",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
   "type": "module",
   "files": [
-    "dist",
-    "binding.gyp",
-    "src/native/**/*"
+    "dist"
   ],
   "scripts": {
     "dev": "tsc && vite build --watch",
@@ -38,7 +34,7 @@
     "clean": "rimraf dist"
   },
   "dependencies": {
-    "@calphonse/audio-capture-core": "*"
+    "chalk": "^5.3.0"
   },
   "devDependencies": {
     "@types/jest": "^29.5.12",
@@ -60,14 +56,5 @@
   },
   "engines": {
     "node": ">=18.0.0"
-  },
-  "os": [
-    "win32",
-    "darwin",
-    "linux"
-  ],
-  "cpu": [
-    "x64",
-    "arm64"
-  ]
+  }
 }

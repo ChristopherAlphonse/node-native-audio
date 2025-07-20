@@ -9,8 +9,8 @@ const config: DtsBundleGeneratorOptions = {
   removeReferencedImport: true,
   untransformModules: [
     'node-addon-api',
-    '@christopheralphonse/audio-capture-core',
-    '@christopheralphonse/audio-processor-core',
+    '@calphonse/audio-capture-core',
+    '@calphonse/audio-processor-core',
     'node-fetch'
   ]
 };

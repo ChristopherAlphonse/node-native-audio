@@ -11,11 +11,11 @@ export default defineConfig({
       formats: ['es', 'cjs']
     },
     rollupOptions: {
-      external: ['node-addon-api', '@christopheralphonse/audio-capture-core', 'events'],
+      external: ['node-addon-api', '@calphonse/audio-capture-core', 'events'],
       output: {
         globals: {
           'node-addon-api': 'nodeAddonApi',
-          '@christopheralphonse/audio-capture-core': 'ChristopherAlphonseAudioCaptureCore',
+                      '@calphonse/audio-capture-core': 'CalphonseAudioCaptureCore',
           'events': 'events'
         }
       }

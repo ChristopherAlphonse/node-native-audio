@@ -1,5 +1,5 @@
 {
-  "name": "@christopheralphonse/node-native-audio",
+  "name": "@calphonse/node-native-audio",
   "version": "1.0.0",
   "description": "node-native-audio - Native audio capture, processing, and transcription for Node.js and Electron",
   "author": "Christopher Alphonse",
@@ -51,5 +51,8 @@
     "node": ">=18.0.0",
     "npm": ">=8.0.0"
   },
-  "packageManager": "npm@10.0.0"
+  "packageManager": "npm@10.0.0",
+  "dependencies": {
+    "chalk": "^5.4.1"
+  }
 }

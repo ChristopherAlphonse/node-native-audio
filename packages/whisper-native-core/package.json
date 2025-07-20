@@ -1,5 +1,5 @@
 {
-  "name": "@christopheralphonse/whisper-native-core",
+  "name": "@calphonse/whisper-native-core",
   "version": "1.0.0",
   "description": "Native Whisper speech-to-text with real-time streaming for Node.js and Electron",
   "author": "Christopher Alphonse",
@@ -37,16 +37,15 @@
     "format": "prettier ./src --write",
     "type-check": "tsc --noEmit",
     "clean": "rimraf dist",
-    "rebuild": "node-gyp rebuild",
     "download-models": "node scripts/download-models.js"
   },
   "dependencies": {
-    "@christopheralphonse/audio-capture-core": "*",
-    "@christopheralphonse/audio-processor-core": "*",
-    "node-addon-api": "^8.0.0",
+    "@calphonse/audio-capture-core": "*",
+    "@calphonse/audio-processor-core": "*",
     "node-fetch": "^3.3.2"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.12",
     "@types/node": "^22.8.1",
     "@typescript-eslint/eslint-plugin": "^8.11.0",
     "@typescript-eslint/parser": "^8.11.0",
@@ -57,6 +56,7 @@
     "jest": "^29.7.0",
     "prettier": "^3.3.3",
     "rimraf": "^5.0.5",
+    "ts-jest": "^29.1.2",
     "tslib": "^2.8.0",
     "typescript": "^5.6.3",
     "vite": "^5.4.10",

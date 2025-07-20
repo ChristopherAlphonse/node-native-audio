@@ -7,7 +7,7 @@ const config: DtsBundleGeneratorOptions = {
   sort: true,
   respectPreserveConstEnums: true,
   removeReferencedImport: true,
-  untransformModules: ['node-addon-api', '@christopheralphonse/audio-capture-core']
+      untransformModules: ['node-addon-api', '@calphonse/audio-capture-core']
 };
 
 export default config;
