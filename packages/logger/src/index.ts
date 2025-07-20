@@ -1,6 +1,8 @@
 export { Logger } from './logger';
 export { LogLevel } from './types';
 export type { LoggerConfig, LogEntry, ILogger, LogData } from './types';
+export { ErrorHandler, ErrorType, ErrorSeverity, USER_FRIENDLY_MESSAGES } from './error-handler';
+export type { ErrorContext, ErrorAnalysis } from './error-handler';
 
 // Default logger instance
 import { Logger } from './logger';

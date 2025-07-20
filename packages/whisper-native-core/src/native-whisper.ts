@@ -3,6 +3,7 @@
  * Provides the interface to the native C++ Whisper addon
  */
 
+import { logger } from '@calphonse/logger';
 import { TranscriptionResult, WhisperConfig } from './types';
 
 // Native addon interface - this will be implemented by the C++ addon
@@ -37,7 +38,7 @@ export class NativeWhisper {
       this.addon = await this.loadNativeAddon();
       this.isInitialized = true;
     } catch (error) {
-      console.error('Failed to initialize native Whisper addon:', error);
+      logger.error('Failed to initialize native Whisper addon', { error });
       throw new Error('Native Whisper addon not available');
     }
   }
@@ -51,22 +52,14 @@ export class NativeWhisper {
     // In the actual implementation, this would load the compiled C++ addon
     return {
       initialize: async (modelPath: string, config: WhisperConfig) => {
-        console.log(
-          'Initializing Whisper model:',
-          modelPath,
-          'with config:',
-          config
-        );
+        logger.info('Initializing Whisper model', { modelPath, config });
       },
       transcribe: async (audioData: Float32Array, sampleRate: number) => {
         // Placeholder - return simulated transcription
-        console.log(
-          'Transcribing audio with',
-          audioData.length,
-          'samples at',
-          sampleRate,
-          'Hz'
-        );
+        logger.debug('Transcribing audio', {
+          samples: audioData.length,
+          sampleRate
+        });
 
         // Simulate processing delay
         await new Promise(resolve => setTimeout(resolve, 100));
@@ -79,7 +72,7 @@ export class NativeWhisper {
         };
       },
       dispose: async () => {
-        console.log('Disposing native Whisper addon');
+        logger.info('Disposing native Whisper addon');
       },
     };
   }
@@ -98,7 +91,7 @@ export class NativeWhisper {
     try {
       await this.addon.initialize(modelPath, config);
     } catch (error) {
-      console.error('Failed to initialize Whisper model:', error);
+      logger.error('Failed to initialize Whisper model', { error });
       throw error;
     }
   }
@@ -117,7 +110,7 @@ export class NativeWhisper {
     try {
       return await this.addon.transcribe(audioData, sampleRate);
     } catch (error) {
-      console.error('Failed to transcribe audio:', error);
+      logger.error('Failed to transcribe audio', { error });
       throw error;
     }
   }
@@ -135,7 +128,7 @@ export class NativeWhisper {
       this.isInitialized = false;
       this.addon = null;
     } catch (error) {
-      console.error('Error disposing native Whisper addon:', error);
+      logger.error('Error disposing native Whisper addon', { error });
     }
   }
 

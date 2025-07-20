@@ -9,12 +9,13 @@
  * - Speech-to-text transcription
  */
 
-const { AudioCapture, AudioDeviceType } = require('@christopheralphonse/audio-capture-core');
-const { AudioProcessor } = require('@christopheralphonse/audio-processor-core');
-const { WhisperTranscriber } = require('@christopheralphonse/whisper-native-core');
+const { AudioCapture, AudioDeviceType } = require('@calphonse/audio-capture-core');
+const { AudioProcessor } = require('@calphonse/audio-processor-core');
+const { WhisperTranscriber } = require('@calphonse/whisper-native-core');
+const { logger } = require('@calphonse/logger');
 
 async function main() {
-  console.log('🎵 node-native-audio Audio Libraries Suite - Basic Usage Example\n');
+  logger.info('🎵 node-native-audio Audio Libraries Suite - Basic Usage Example');
 
   try {
     // Initialize components
@@ -23,21 +24,21 @@ async function main() {
     const transcriber = new WhisperTranscriber();
 
     // Get available devices
-    console.log('📱 Available audio devices:');
+    logger.info('📱 Available audio devices:');
     const devices = await capture.getDevices();
     const microphones = devices.filter(d => d.type === AudioDeviceType.MICROPHONE);
 
     microphones.forEach((device, index) => {
-      console.log(`  ${index + 1}. ${device.name} ${device.isDefault ? '(Default)' : ''}`);
+      logger.info(`  ${index + 1}. ${device.name} ${device.isDefault ? '(Default)' : ''}`);
     });
 
     if (microphones.length === 0) {
-      console.log('❌ No microphone devices found');
+      logger.warn('❌ No microphone devices found');
       return;
     }
 
     // Set up audio processing pipeline
-    console.log('\n🔧 Setting up audio processing pipeline...');
+    logger.info('🔧 Setting up audio processing pipeline...');
 
     // Configure processor
     await processor.configure({
@@ -68,25 +69,25 @@ async function main() {
 
     transcriber.on('transcription', (result) => {
       if (result.text.trim()) {
-        console.log(`🎤 "${result.text}" (confidence: ${(result.confidence * 100).toFixed(1)}%)`);
+        logger.info(`🎤 "${result.text}"`, { confidence: (result.confidence * 100).toFixed(1) + '%' });
       }
     });
 
     // Handle errors
     capture.on('error', (error) => {
-      console.error('❌ Capture error:', error.message);
+      logger.error('❌ Capture error', { error: error.message });
     });
 
     processor.on('error', (error) => {
-      console.error('❌ Processing error:', error.message);
+      logger.error('❌ Processing error', { error: error.message });
     });
 
     transcriber.on('error', (error) => {
-      console.error('❌ Transcription error:', error.message);
+      logger.error('❌ Transcription error', { error: error.message });
     });
 
     // Start the pipeline
-    console.log('\n🎤 Starting audio capture...');
+    logger.info('🎤 Starting audio capture...');
     await capture.startCapture({
       deviceId: microphones[0].id,
       format: {
@@ -98,22 +99,22 @@ async function main() {
       }
     });
 
-    console.log('✅ Audio capture started! Speak into your microphone...');
-    console.log('Press Ctrl+C to stop\n');
+    logger.info('✅ Audio capture started! Speak into your microphone...');
+    logger.info('Press Ctrl+C to stop');
 
     // Keep the process running
     process.on('SIGINT', async () => {
-      console.log('\n🛑 Stopping audio capture...');
+      logger.info('🛑 Stopping audio capture...');
       await capture.stopCapture();
       await processor.dispose();
       await transcriber.dispose();
       await capture.dispose();
-      console.log('✅ Cleanup completed');
+      logger.info('✅ Cleanup completed');
       process.exit(0);
     });
 
   } catch (error) {
-    console.error('❌ Error:', error.message);
+    logger.error('❌ Error', { error: error.message });
     process.exit(1);
   }
 }

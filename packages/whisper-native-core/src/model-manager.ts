@@ -3,6 +3,7 @@
  * Handles downloading, caching, and managing Whisper models
  */
 
+import { logger } from '@calphonse/logger';
 import { WhisperModel, ModelDownloadProgress } from './types';
 
 export class ModelManager {
@@ -96,12 +97,12 @@ export class ModelManager {
     }
 
     if (model.isDownloaded) {
-      console.log(`Model '${name}' is already downloaded`);
+      logger.info(`Model '${name}' is already downloaded`);
       return;
     }
 
     try {
-      console.log(`Downloading model '${name}' from ${model.url}`);
+      logger.info(`Downloading model '${name}'`, { url: model.url });
 
       // TODO: Implement actual model downloading
       // This is a placeholder that simulates download progress
@@ -110,9 +111,9 @@ export class ModelManager {
       model.isDownloaded = true;
       model.localPath = `${this.downloadPath}/${name}.bin`;
 
-      console.log(`Model '${name}' downloaded successfully`);
+      logger.info(`Model '${name}' downloaded successfully`);
     } catch (error) {
-      console.error(`Failed to download model '${name}':`, error);
+      logger.error(`Failed to download model '${name}'`, { error });
       throw error;
     }
   }
@@ -178,20 +179,20 @@ export class ModelManager {
     }
 
     if (!model.isDownloaded) {
-      console.log(`Model '${name}' is not downloaded`);
+      logger.info(`Model '${name}' is not downloaded`);
       return;
     }
 
     try {
       // TODO: Implement actual file removal
-      console.log(`Removing model '${name}'`);
+      logger.info(`Removing model '${name}'`);
 
       model.isDownloaded = false;
       model.localPath = undefined;
 
-      console.log(`Model '${name}' removed successfully`);
+      logger.info(`Model '${name}' removed successfully`);
     } catch (error) {
-      console.error(`Failed to remove model '${name}':`, error);
+      logger.error(`Failed to remove model '${name}'`, { error });
       throw error;
     }
   }

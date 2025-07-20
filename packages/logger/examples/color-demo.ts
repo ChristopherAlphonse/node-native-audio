@@ -41,9 +41,3 @@ sourceLogger.error('Error with source info');
 sourceLogger.warn('Warning with source info');
 sourceLogger.info('Info with source info');
 
-console.log('\n=== Color Scheme Summary ===');
-console.log('✅ ERROR: Bold red tag + dim red message');
-console.log('✅ WARN:  Bold yellow tag + dim yellow message');
-console.log('✅ INFO:  Bold blue tag + dim blue message');
-console.log('✅ DEBUG: Bold green tag + dim green message');
-console.log('✅ TRACE: Bold gray tag + dim gray message');

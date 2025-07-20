@@ -2,7 +2,7 @@
 
 A comprehensive suite of TypeScript-based npm libraries that provide native audio capture, processing, and transcription capabilities for Node.js and Electron applications, solving the limitations of web-based audio APIs.
 
-## 🎯 Project Overview
+## Project Overview
 
 The node-native-audio suite consists of three core packages that work together to provide a complete audio processing pipeline:
 
@@ -10,7 +10,7 @@ The node-native-audio suite consists of three core packages that work together t
 - **@calphonse/audio-processor-core**: High-performance audio processing with AI enhancements
 - **@calphonse/whisper-native-core**: Native Whisper speech-to-text with real-time streaming
 
-## 🚀 Key Features
+## Key Features
 
 ### Audio Capture Core
 - ✅ System audio capture (speakers output)
@@ -36,7 +36,7 @@ The node-native-audio suite consists of three core packages that work together t
 - ✅ Segment-level transcription
 - ✅ Model caching and management
 
-## 📦 Installation
+## Installation
 
 ### Prerequisites
 
@@ -114,12 +114,13 @@ npm run format
 npm run type-check
 ```
 
-## 📖 Usage Examples
+## Usage Examples
 
 ### Basic Audio Capture
 
 ```typescript
-import { AudioCapture, AudioDeviceType } from '@christopheralphonse/audio-capture-core';
+import { AudioCapture, AudioDeviceType } from '@calphonse/audio-capture-core';
+import { logger } from '@calphonse/logger';
 
 const capture = new AudioCapture();
 
@@ -130,7 +131,7 @@ const microphones = await capture.getDevicesByType(AudioDeviceType.MICROPHONE);
 // Start capture
 capture.on('data', (event) => {
   if (event.type === 'data' && event.data) {
-    console.log('Audio data received:', event.data.length, 'samples');
+    logger.debug('Audio data received', { samples: event.data.length });
   }
 });
 
@@ -152,8 +153,9 @@ await capture.stopCapture();
 ### Audio Processing Pipeline
 
 ```typescript
-import { AudioCapture } from '@christopheralphonse/audio-capture-core';
-import { AudioProcessor } from '@christopheralphonse/audio-processor-core';
+import { AudioCapture } from '@calphonse/audio-capture-core';
+import { AudioProcessor } from '@calphonse/audio-processor-core';
+import { logger } from '@calphonse/logger';
 
 const capture = new AudioCapture();
 const processor = new AudioProcessor();
@@ -166,7 +168,7 @@ capture.on('data', (event) => {
 });
 
 processor.on('processed', (processedData) => {
-  console.log('Processed audio:', processedData.length, 'samples');
+  logger.debug('Processed audio', { samples: processedData.length });
 });
 
 // Configure processing
@@ -180,8 +182,9 @@ await processor.configure({
 ### Real-time Transcription
 
 ```typescript
-import { AudioCapture } from '@christopheralphonse/audio-capture-core';
-import { WhisperTranscriber } from '@christopheralphonse/whisper-native-core';
+import { AudioCapture } from '@calphonse/audio-capture-core';
+import { WhisperTranscriber } from '@calphonse/whisper-native-core';
+import { logger } from '@calphonse/logger';
 
 const capture = new AudioCapture();
 const transcriber = new WhisperTranscriber();
@@ -194,8 +197,7 @@ capture.on('data', (event) => {
 });
 
 transcriber.on('transcription', (result) => {
-  console.log('Transcription:', result.text);
-  console.log('Confidence:', result.confidence);
+  logger.info('Transcription', { text: result.text, confidence: result.confidence });
 });
 
 // Start transcription
@@ -206,7 +208,7 @@ await transcriber.start({
 });
 ```
 
-## 🏗️ Architecture
+## Architecture
 
 ### Package Structure
 
@@ -234,7 +236,7 @@ Audio Input → Capture → Processing → Transcription → Output
   System      Addon     AEC/NS      Model       Stream
 ```
 
-## 🎯 Performance Targets
+## Performance Targets
 
 - **Latency**: < 50ms audio processing pipeline
 - **CPU Usage**: < 10% for audio capture and processing
@@ -242,7 +244,7 @@ Audio Input → Capture → Processing → Transcription → Output
 - **Transcription Accuracy**: > 95% for clear speech
 - **Cross-Platform Compatibility**: 100% Windows, macOS, Linux
 
-## 🔧 Configuration
+## Configuration
 
 ### Audio Capture Options
 
@@ -281,7 +283,7 @@ interface WhisperOptions {
 }
 ```
 
-## 🧪 Testing
+## Testing
 
 ### Unit Tests
 
@@ -301,7 +303,7 @@ npm run test:integration
 npm run test:performance
 ```
 
-## 📚 Documentation
+## Documentation
 
 - [API Reference](./docs/api-reference.md)
 - [Installation Guide](./docs/installation.md)
@@ -309,7 +311,7 @@ npm run test:performance
 - [Troubleshooting](./docs/troubleshooting.md)
 - [Performance Optimization](./docs/performance.md)
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions! Please see our [Contributing Guidelines](./CONTRIBUTING.md) for details.
 
@@ -328,11 +330,11 @@ We welcome contributions! Please see our [Contributing Guidelines](./CONTRIBUTIN
 - Conventional commits
 - 90%+ test coverage
 
-## 📄 License
+## License
 
 MIT License - see [LICENSE](./LICENSE) file for details.
 
-## 🆘 Support
+## Support
 
 - **Issues**: [GitHub Issues](https://github.com/ChristopherAlphonse/node-native-audio/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/ChristopherAlphonse/node-native-audio/discussions)
@@ -348,8 +350,7 @@ MIT License - see [LICENSE](./LICENSE) file for details.
 
 ### Phase 2: Integration (Week 5)
 - [ ] Electron bindings
-- [ ] Glass by Pickle integration
-- [ ] Example applications
+
 
 ### Phase 3: Quality & Launch (Weeks 6-7)
 - [ ] Comprehensive testing

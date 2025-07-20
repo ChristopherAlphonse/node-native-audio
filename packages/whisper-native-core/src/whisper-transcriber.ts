@@ -1,4 +1,5 @@
 import { EventEmitter } from 'events';
+import { logger } from '@calphonse/logger';
 import {
   WhisperConfig,
   TranscriptionResult,
@@ -38,7 +39,7 @@ export class WhisperTranscriber extends EventEmitter {
   async initialize(): Promise<void> {
     try {
       // TODO: Initialize Whisper model and native addon
-      console.log('Initializing Whisper transcriber with config:', this.config);
+      logger.info('Initializing Whisper transcriber', { config: this.config });
       this.isInitialized = true;
     } catch (error) {
       const whisperError: WhisperError = {
@@ -62,7 +63,7 @@ export class WhisperTranscriber extends EventEmitter {
 
     if (this.isInitialized) {
       // TODO: Reconfigure Whisper model with new settings
-      console.log('Reconfiguring Whisper transcriber with:', config);
+      logger.info('Reconfiguring Whisper transcriber', { config });
     }
   }
 
@@ -76,7 +77,7 @@ export class WhisperTranscriber extends EventEmitter {
 
     this.isTranscribing = true;
     this.audioBuffer = [];
-    console.log('Starting Whisper transcription');
+    logger.info('Starting Whisper transcription');
   }
 
   /**
@@ -184,7 +185,7 @@ export class WhisperTranscriber extends EventEmitter {
   ): Promise<{ text: string; confidence: number }> {
     // TODO: Implement actual Whisper model call
     // This is a placeholder that simulates transcription
-    console.log('Calling Whisper model with', audioData.length, 'samples');
+    logger.debug('Calling Whisper model', { samples: audioData.length });
 
     // Simulate processing delay
     await new Promise(resolve => setTimeout(resolve, 100));
@@ -209,7 +210,7 @@ export class WhisperTranscriber extends EventEmitter {
       this.audioBuffer = [];
     }
 
-    console.log('Whisper transcription stopped');
+    logger.info('Whisper transcription stopped');
   }
 
   /**
@@ -218,7 +219,7 @@ export class WhisperTranscriber extends EventEmitter {
   async dispose(): Promise<void> {
     await this.stop();
     this.isInitialized = false;
-    console.log('Whisper transcriber disposed');
+    logger.info('Whisper transcriber disposed');
   }
 
   /**

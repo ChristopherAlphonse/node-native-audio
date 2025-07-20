@@ -5,9 +5,9 @@
 ### Project Structure
 - [x] Monorepo setup with Turbo
 - [x] Three core packages created:
-  - `@christopheralphonse/audio-capture-core`
-  - `@christopheralphonse/audio-processor-core`
-  - `@christopheralphonse/whisper-native-core`
+  - `@calphonse/audio-capture-core`
+- `@calphonse/audio-processor-core`
+- `@calphonse/whisper-native-core`
 - [x] TypeScript configuration for all packages
 - [x] Vite build system configuration
 - [x] Package.json files with proper dependencies
